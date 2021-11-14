@@ -10,5 +10,6 @@ return [
     '(mobile|portable|appliances)\/?' => 'Category/Page/$2_1',
     '(mobile|portable|appliances)\/([0-9]*)' => 'Category/Page/$2_$3',
     '(mobile|portable|appliances)\/([0-9])*\?([a-z0-9=\&]*)' => 'Category/Page/$2_$3',
-    'profile\/([a-zA-Zа-яФ-ЯёЁ0-9]*)' => 'Profile/Data/$2'
+    'profile\/([a-zA-Zа-яФ-ЯёЁ0-9]*)' => 'Profile/Data/$2',
+    'detail\/([a-zA-Zа-яФ-ЯёЁ0-9_-]*)' => 'Detail/Get/$2'
 ];

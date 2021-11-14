@@ -77,4 +77,17 @@ class ProductsModel extends Model {
         return $this->getList(['id, name, code'], ['author_id' => $id]);
     }
 
+
+    // Функция для удаления товара и коментариев к нему
+    function DeleteProduct($product_code) {
+        $sql = "DELETE FROM products WHERE code = '$product_code'";
+        $this->general($sql);
+    }
+
+
+    // Функция для получения одного продукта
+    function GetProduct($code) {
+        return $this->getList(['id, category_code, author_id, name, code, description, image, price'], ['code' => $code]);
+    }
+
 }

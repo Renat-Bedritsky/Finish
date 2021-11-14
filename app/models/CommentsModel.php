@@ -29,4 +29,25 @@ class CommentsModel extends Model {
         }
     }
 
+
+    // Функция для удаления коментариев к товару
+    function DeleteComments($product_code) {
+        $sql = "DELETE FROM comments WHERE product_code = '$product_code'";
+        $this->general($sql);
+    }
+
+
+    // Функция для удаления  коментария товару
+    function DeleteComment($date) {
+        $sql = "DELETE FROM comments WHERE date = '$date'";
+        $this->general($sql);
+    }
+
+    // Функция для получения коментариев и информации о их создателях
+    function GetComments($product_code) {
+        $data = $this->getList([], ['product_code' => $product_code]);
+        if (isset($data)) return $data;
+        else return 0;
+    }
+
 }

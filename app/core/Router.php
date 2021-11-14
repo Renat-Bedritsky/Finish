@@ -20,6 +20,7 @@ class Router {
             if(preg_match("/^\/($key)$/u", $uri)) {
                 $str = preg_replace("/^\/($key)$/u", $path, $uri);
                 $m = explode('/', $str);
+                // echo $str;
 
                 $nameController = array_shift($m).'Controller';
                 $this->controller = 'app/controllers/'.$nameController;

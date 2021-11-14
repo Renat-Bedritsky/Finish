@@ -85,4 +85,29 @@ class UsersModel extends Model {
         return $result;
     }
 
+
+    // Функция для обновления фото профиля
+    function UpdateFoto($image, $id) {
+        $sql = "UPDATE users SET foto = '$image' WHERE id = $id";
+        $this->general($sql);
+    }
+
+
+    // Получить логин по id
+    function GetLogin($id) {
+        $result = $this->getList(['login'], ['id' => $id]);
+        return $result[0]['login'];
+    }
+
+
+    // Для страницы detail
+    function GetUsers($data) {
+        foreach ($data as $key => $path) {
+            $id = $path['author_id'];
+            $user = $this->getList(['id, login, foto, position'], ['id' => $id]);
+            $data[$key] += ['user' => $user[0]];
+        }
+        return $data;
+    }
+
 }

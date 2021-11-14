@@ -1,84 +1,25 @@
 <?php $data = $_POST['data'];
-echo '<pre>';
-print_r($data);
-echo '</pre>';
 
 // Вызывает форму для обновления фото профиля
-if(isset($_POST['load_foto'])) {
-    echo '<style>body {overflow: hidden;} .update_foto {display: block;}</style>';
-}
-// Обновление фото профиля
-if (isset($_POST['update_foto'])) {
-    updateFoto($table['foto']);
-}
+if(isset($_POST['load_foto'])) echo FormLoadFoto($_POST['userData']['login']);
 
 // Вызывает форму для удаления товара
-if (isset($_POST['delete_product'])) {
-    echo '<style>body {overflow: hidden;} .delete_product {display: block;}</style>';
-}
-// Удаление товара
-if (isset($_POST['delete_product_yes'])) {
-    $products->deleteProduct($_POST['delete_product_yes']);
-    header('Refresh: 0');
-}
+if (isset($_POST['delete_product'])) echo FormDeleteProduct($data[0]['login'], $_POST['delete_product']);
 
 // Вызывает форму для удаления коментария
-if (isset($_POST['delete_comment'])) {
-    echo '<style>body {overflow: hidden;} .delete_field {display: block;}</style>';
-}
-// Удаление коментария
-if (isset($_POST['delete_comment_yes'])) {
-    $comments->deleteComments($_POST['delete_comment_yes']);
-    header('Refresh: 0');
-}
+if (isset($_POST['delete_comment'])) echo FormDeleteComment($data[0]['login'], $_POST['delete_comment']);
 
 ?>
-
-<!-- Форма для удаления коментария (изначально скрыта) -->
-<div class="delete_field">
-    <div class="delete_field_wrapper">
-        <form method="POST">
-            <p>Удалить комментарий?</p>
-            <button name="delete_comment_yes" value="<?= $_POST['delete_comment'] ?>">Удалить</button>
-            <a href="profile.php?user=<?= $_GET['user'] ?>">Отмена</a>
-        </form>
-    </div>
-</div>
-
-<!-- Форма для удаления товара (изначально скрыта) -->
-<div class="delete_product">
-    <div class="delete_product_wrapper">
-        <form method="POST">
-            <p>Удалить товар?</p>
-            <button name="delete_product_yes" value="<?= $_POST['delete_product'] ?>">Удалить</button>
-            <a href="profile.php?user=<?= $_GET['user'] ?>">Отмена</a>
-        </form>
-    </div>
-</div>
-
-<!-- Форма для обновления фото (изначально скрыта) -->
-<div class="update_foto">
-    <div class="update_foto_wrapper">
-        <form method="POST" name="add_product" enctype="multipart/form-data">
-            <input type="file" name="file" required><br>
-            <button name="update_foto">Загрузить</button>
-            <a href="profile.php?user=<?= $_GET['user'] ?>">Отмена</a>
-        </form>
-    </div>
-</div>
 
 <div class="profile">
     <div class="width">
         <h2>Административная панель</h2>
 
         <div class="profile_nav">
-            <a href="profile.php?user=<?= $data[0]['login'] ?>">Профиль</a>
+            <a href="/profile/<?= $data[0]['login'] ?>">Профиль</a>
 
-            <?php
-            if ($data[0]['position'] == 'administrator' || $data[0]['position'] == 'moderator') { ?>
-
-                <a href="/control">Управление</a>
-
+            <?php if ($data[0]['position'] == 'administrator' || $data[0]['position'] == 'moderator') { ?>
+                <a href="/control/<?= $data[0]['login'] ?>">Управление</a>
             <?php } ?>
 
         </div>
@@ -87,7 +28,7 @@ if (isset($_POST['delete_comment_yes'])) {
             <div class="information" >
                 <div class="profile">
                     <div class="profile_foto">
-                        <img src="<?= $data[0]['foto'] ?>" alt="foto">
+                        <img src="/public/images/foto_profiles/<?= $data[0]['foto'] ?>" alt="foto">
 
                         <?php // Обновить фото
                         if ($data[0]['login'] == $_POST['userData']['login']) { ?>
@@ -154,7 +95,7 @@ if (isset($_POST['delete_comment_yes'])) {
                                 <td>
                                     <?php if ($data['resolution'] == 'YES') { ?>
                                         <form method="POST">
-                                            <button name="delete_product" value="<?= $product['id'] ?>">Удалить</button>
+                                            <button name="delete_product" value="<?= $product['code'] ?>">Удалить</button>
                                         </form>
                                     <?php } ?>
                                 </td>
