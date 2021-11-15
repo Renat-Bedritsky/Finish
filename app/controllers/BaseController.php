@@ -23,10 +23,12 @@ class BaseController extends Controller {
         }
         else $get = '';
 
-        if (isset($_POST['plus'])) {
+        if (isset($_POST['plus']) && !empty($_POST['userData'])) {
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
             $this->users->PlusBasket($array, $_POST['plus'], $_POST['userData']['author_id']);
+            header('Refresh: 0');
         }
+        if (isset($_POST['plus']) && empty($_POST['userData'])) header('location: /autorization');
         
         $mass += ['get' => $get];
         $_POST['info'] = $mass;

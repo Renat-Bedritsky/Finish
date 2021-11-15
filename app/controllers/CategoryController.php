@@ -35,6 +35,7 @@ class CategoryController extends Controller {
         if (isset($_POST['plus'])) {
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
             $this->users->PlusBasket($array, $_POST['plus'], $_POST['userData']['author_id']);
+            header('Refresh: 0');
         }
         
         $category += ['get' => $get];

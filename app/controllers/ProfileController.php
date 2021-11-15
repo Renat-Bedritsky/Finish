@@ -8,12 +8,10 @@ class ProfileController extends Controller {
 
     function __construct() {
         $this->users = new UsersModel;
-        $userData = $this->users->CheckCookieLogin();
-        if ($userData['access'] != 'allowed') {
-            header('location: autorization');
+        $_POST['userData'] = $this->users->CheckCookieLogin();
+        if ($_POST['userData']['access'] != 'allowed') {
+            header('location: /autorization');
         }
-        $_POST['userData'] = $userData;
-        $this->categories = new CategoriesModel;
         $this->products = new ProductsModel;
         $this->comments = new CommentsModel;
         $this->view = new ProfileView;

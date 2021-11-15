@@ -11,5 +11,11 @@ return [
     '(mobile|portable|appliances)\/([0-9]*)' => 'Category/Page/$2_$3',
     '(mobile|portable|appliances)\/([0-9])*\?([a-z0-9=\&]*)' => 'Category/Page/$2_$3',
     'profile\/([a-zA-Zа-яФ-ЯёЁ0-9]*)' => 'Profile/Data/$2',
-    'detail\/([a-zA-Zа-яФ-ЯёЁ0-9_-]*)' => 'Detail/Get/$2'
+    'detail\/([a-zA-Zа-яФ-ЯёЁ0-9_-]*)' => 'Detail/Get/$2',
+    'control\/([a-zA-Zа-яФ-ЯёЁ0-9_-]*)' => 'Control/Get/$2',
+    'autorization' => 'Autorization/Get',
+    'logout' => 'Autorization/Exit',
+    'registration' => 'Registration/Get',
+    'order' => 'Order/Get',
+    'add' => 'Add/Add'
 ];

@@ -43,7 +43,7 @@
         <div class="basket_order">
             <?php
             if ($basket['total'] > 0) { ?>
-                <a href="order">Оформить заказ</a>
+                <a href="/order">Оформить заказ</a>
             <?php } ?>
         </div>
     </div>

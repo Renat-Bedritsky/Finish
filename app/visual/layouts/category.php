@@ -29,7 +29,7 @@
                                         
                         <form method="POST">
                             <button name="plus" value="<?= $product['code'] ?>">В корзину</button>
-                            <a href="detail/<?= $product['code'] ?>">Подробнее</a>
+                            <a href="/detail/<?= $product['code'] ?>">Подробнее</a>
                         </form>
                     </div>
                 </div>

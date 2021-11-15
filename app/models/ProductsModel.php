@@ -29,9 +29,9 @@ class ProductsModel extends Model {
 
         if (isset($data['category'])) {
             $category_code = $data['category'];
-            $sql = "SELECT id, category_code, author_id, name, code, description, image, price FROM products WHERE price >= $min AND price <= $max AND updated_at >= '$new' AND category_code = '$category_code'";
+            $sql = "SELECT id, category_code, author_id, name, code, description, image, price FROM $this->tablename WHERE price >= $min AND price <= $max AND updated_at >= '$new' AND category_code = '$category_code'";
         }
-        else $sql = "SELECT id, category_code, author_id, name, code, description, image, price FROM products WHERE price >= $min AND price <= $max AND updated_at >= '$new'";
+        else $sql = "SELECT id, category_code, author_id, name, code, description, image, price FROM $this->tablename WHERE price >= $min AND price <= $max AND updated_at >= '$new'";
         
         $string = $this->general($sql);
 
@@ -40,10 +40,16 @@ class ProductsModel extends Model {
         $countProducts = 0;
         $result = ['products' => []];
 
+        $array = [];
         while ($product = $string->fetch_assoc()) {
+            array_push($array, $product);
+        }
+        $array = array_reverse($array);
+
+        foreach ($array as  $path) {
             $countProducts += 1;
             if($countProducts > ($finalProductInPage - ONPAGE) && $countProducts <= $finalProductInPage) {
-                array_push($result['products'], $product);
+                array_push($result['products'], $path);
             }
         }
 
@@ -61,6 +67,7 @@ class ProductsModel extends Model {
         $total = 0;
         foreach ($array as $code => $count) {
             $product = $this->getList(['id, category_code, author_id, name, code, description, image, price'], ['code' => $code]);
+            if(empty($product)) continue;
             $product = $product[0];
             $product += ['count' => $count];
             array_push($products, $product);
@@ -88,6 +95,38 @@ class ProductsModel extends Model {
     // Функция для получения одного продукта
     function GetProduct($code) {
         return $this->getList(['id, category_code, author_id, name, code, description, image, price'], ['code' => $code]);
+    }
+
+    // Сумма цены корзины
+    function GetTotalPrice($basket) {
+        $total = 0;
+        foreach ($basket as $key => $path) {
+            $price = $this->getList(['price'], ['code' => $key]);
+            $sum = $price[0]['price'] * $path;
+            $total += $sum;
+        }
+        return $total;
+    }
+
+
+    // Функция для добавления товара
+    function SetProduct($data) {
+        date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
+        $line = $this->getLine();
+
+        $id = $line + 1;                             // Количество строк в таблице + 1
+        $category_code = $data['category_code'];     // ID категории
+        $author_id = $data['author_id'];             // ID автора
+        $name = $data['name'];                       // Наименование товара
+        $code = $data['code'];                       // Код товара
+        $description = $data['description'];         // Описание товара
+        $image = $data['image'];                     // Фото товара
+        $price = $data['price'];                     // Цена товара
+        $created_at = date("Y-m-d H:i:s");           // Дата создания поста
+        $updated_at = date("Y-m-d H:i:s");           // Дата обновления поста
+
+        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$category_code', '$author_id', '$name', '$code', '$description', '$image', '$price', '$created_at', '$updated_at')";
+        $this->general($sql);
     }
 
 }

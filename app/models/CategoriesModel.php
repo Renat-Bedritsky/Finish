@@ -7,11 +7,12 @@ class CategoriesModel extends Model {
         $this->tablename = 'categories';
     }
 
-
-    // Функция для нахождения категории товара
     function GetInfo() {
-        $result = $this->getList(['id, name, code, description, image']);
-        return $result;
+        return $this->getList(['id, name, code, description, image']);
+    }
+
+    function GetNameCategories() {
+        return $this->getList(['name, code']);
     }
 
     function GetNameCategory($code) {

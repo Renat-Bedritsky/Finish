@@ -53,8 +53,8 @@ class Model {
 
 
     // Функция для получения последнего id
-    function getLine($table) {
-        $sql = "SELECT id FROM `products` WHERE id = (SELECT max(id) FROM `$table`)";
+    function getLine() {
+        $sql = "SELECT id FROM `$this->tablename` WHERE id = (SELECT max(id) FROM `$this->tablename`)";
         $string = $this->general($sql);
 
         $row = $string->fetch_assoc();

@@ -24,8 +24,8 @@ class UsersModel extends Model {
                 $userData = ['author_id' => $user['id'], 'login' => $user['login'], 'access' => $access, 'position' => $user['position']];
                 return $userData;
             }
-            else return '0';
         }
+        return '0';
     }
 
 
@@ -108,6 +108,65 @@ class UsersModel extends Model {
             $data[$key] += ['user' => $user[0]];
         }
         return $data;
+    }
+
+
+    // Функция для получения логинов и статусов пользователей (для смены статуса в control)
+    function GetLoginAndPosition($access) {
+        $data = $this->getList(['login, position']);
+        $result = [];
+        foreach ($data as $key => $path) {
+            if ($path['position'] == 'administrator') continue;
+            if ($path['position'] == 'moderator' && $access == 'moderator') continue;
+            array_push($result, $data[$key]);
+        }
+        return $result;  
+    }
+
+
+    // Функция для обновления доступа
+    function UpdatePosition($login, $position) {
+        $sql = "UPDATE $this->tablename SET position = '$position' WHERE login = '$login'";
+        $this->general($sql);
+    }
+
+
+    // Функция для проверки логина и пароля (для авторизации)
+    function Autorization($login, $password) {
+        $listUsers = $this->allLoginAndPass();
+        foreach($listUsers as $user) {
+            if ($login == $user['login'] && $password == $user['password']) {
+                return 'autorizationYES';
+            }
+        }
+    }
+
+
+    // Функция для проверки существования логина (для регистрации)
+    function checkLogin($login) {
+        $allUsers = $this->getList(['login']);
+        foreach ($allUsers as $user) {
+            if ($user['login'] == $login) {
+                return 'User exist';
+            }
+        }
+        return 'User not exist';
+    }
+
+    
+    // Функция для добавления пользователя
+    function RegistrationUser($login, $password) {
+        $count = $this->getLine();
+        date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
+
+        $id = $count + 1;
+        $date = date("Y-m-d H:i:s");
+        $foto = 'start-foto.png';
+        $basket = '[]';
+        $position = 'user';
+
+        $sql = "INSERT INTO users VALUES ('$id', '$login', '$password', '$foto', '$basket', '$position', '$date')";
+        $this->general($sql);
     }
 
 }

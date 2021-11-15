@@ -46,11 +46,10 @@
                         <div class="nav_account">
                             <ul>
                                 <li>
-                                    <a href="/"><?= $user['login'] ?></a>
+                                    <a><?= $user['login'] ?></a>
                                     <ul>
                                         <li><a href="/profile/<?= $user['login'] ?>">Профиль</a></li>
-                                        <li><a href="/addProduct">Добавить</a></li>
-                                        <li><a href="/test.php">Тест</a></li>
+                                        <li><a href="/add">Добавить</a></li>
                                         <li><a href="/logout">Выход</a></li>
                                     </ul>
                                 </li>

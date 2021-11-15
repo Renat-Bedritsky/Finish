@@ -18,10 +18,12 @@ class BasketController extends Controller {
         if (isset($_POST['plus'])) {
             $this->users->PlusBasket($array, $_POST['plus'], $_POST['userData']['author_id']);
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
+            header('Refresh: 0');
         }
         else if (isset($_POST['minus'])) {
             $this->users->MinusBasket($array, $_POST['minus'], $_POST['userData']['author_id']);
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
+            header('Refresh: 0');
         }
 
         $basket = $this->products->ProductsForBasket($array);

@@ -1,4 +1,5 @@
 <?php
+
 // Форма для обновления фото
 function FormLoadFoto($login) {
     return 
@@ -14,6 +15,7 @@ function FormLoadFoto($login) {
     </div>';
 }
 
+
 // Загрузчик фото (Возвращает ссылку на фотографию)
 function LoadFoto($link) {
     $folder = $_SERVER['DOCUMENT_ROOT'].'/public/images/'.$link;    // Папка загрузки
@@ -25,6 +27,7 @@ function LoadFoto($link) {
     $fileInfo = pathinfo($_FILES['file']['name']);
     return transliteration($fileInfo['filename'], $fileInfo['extension'], $listFiles, $path, $folder);
 }
+
         
 // Транслитерация имени загружаемого фото
 function transliteration($name, $extension, $listFiles, $path, $folder) {
@@ -47,6 +50,25 @@ function transliteration($name, $extension, $listFiles, $path, $folder) {
 }
 
 
+// Обработка данных
+function LoadProduct($array) {
+    $author_id = $array['userData']['author_id'];
+    $code = mb_strtolower(str_replace(' ', '_', $array['name']));   // Код товара (str_replace заменяет символы, mb_strtolower приводит к нижнему регистру)
+    $image = loadFoto('foto_products');
+    
+    $data = array( 
+        'category_code' => $array['category_code'],
+        'author_id' => $author_id,
+        'name' => $array['name'],
+        'code' => $code,
+        'description' => $array['description'],
+        'image' => $image,
+        'price' => $array['price']
+    );
+    return $data;
+}
+
+
 // Форма для удаления товара
 function FormDeleteProduct($login, $product) {
     return '
@@ -64,7 +86,7 @@ function FormDeleteProduct($login, $product) {
 
 
 // Форма для удаления комментария
-function FormDeleteComment($login, $comment) {
+function FormDeleteComment($link, $comment) {
     return '
     <style>body {overflow: hidden;} .delete_field {display: block;}</style>
     <div class="delete_field">
@@ -72,7 +94,76 @@ function FormDeleteComment($login, $comment) {
             <form method="POST">
                 <p>Удалить комментарий?</p>
                 <button name="delete_comment_yes" value="'.$comment.'">Удалить</button>
-                <a href="/profile/'.$login.'">Отмена</a>
+                <a href="'.$link.'">Отмена</a>
+            </form>
+        </div>
+    </div>';
+}
+
+
+// Форма для удаления комментария
+function FormUpdateComment($link, $ar) {
+    return '
+    <style>body {overflow: hidden;} .update_field {display: block;}</style>
+    <div class="update_field">
+        <div class="update_field_wrapper">
+            <form method="POST">
+                <textarea rows="10" cols="60" minlength="3" name="content">'.$ar['content'].'</textarea><br>
+                <input type="hidden" name="author_id" value="'.$ar['author_id'].'">
+                <input type="hidden" name="date" value="'.$ar['date'].'">
+                <input type="submit" name="enter_update" value="Изменить">
+                <a href="'.$link.'">Отмена</a>
+            </form>
+        </div>
+    </div>';
+}
+
+
+// Форма для удаления комментария
+function FormUpdatePosition($data) {
+    if ($data['userData']['position'] == 'administrator') $add = '<option value="moderator">Модератор</option>';
+    else $add = null;
+    return '
+    <style>body {overflow: hidden;} .update_position {display: block;}</style>
+    <div class="update_position">
+    <div class="update_position_wrapper">
+        '.$data['update_position'].'
+        <form method="POST">
+            <input type="hidden" name="login" value="'.$data['update_position'].'">
+            <select name="position">
+                <option value="user">Пользователь</option>
+                '.$add.'
+                <option value="banned">Бан</option>
+            </select><br>
+            <input type="submit" name="enter" value="Изменить">
+            <a href="/control/'.$_POST['focus'].'">Отмена</a>
+        </form>
+    </div>
+</div>';
+}
+
+
+// Сообщение о принятии заказа
+function MessageOrder() {
+    return '
+    <style>.order_enter {display: block;}</style>
+    <div class="order_enter">
+        <div class="order_enter_window">
+            <h2>Ваш заказ принят</h2>
+            <p>Ожидайте звонка оператора</p>
+        </div>
+    </div>';
+}
+
+
+// Сообщение о бане
+function MessageBanned() {
+    return '
+    <style>body {overflow: hidden;} .add_product_banned {display: block;} .title, .add_product {display: none;}</style>
+    <div class="add_product_banned">
+        <div class="add_product_banned_wrapper">
+            <form method="POST">
+                <a href="/">Пользователь забанен</a>
             </form>
         </div>
     </div>';

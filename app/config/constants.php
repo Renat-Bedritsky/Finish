@@ -1,4 +1,4 @@
 <?php
 
 define('ROOT', $_SERVER["DOCUMENT_ROOT"]);
-define('ONPAGE', 6);
+define('ONPAGE', 20);

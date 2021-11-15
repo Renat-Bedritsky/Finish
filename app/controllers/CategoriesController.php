@@ -10,8 +10,7 @@ class CategoriesController extends Controller {
         $this->categories = new CategoriesModel;
         $this->view = new CategoriesView;
         $this->users = new UsersModel;
-        $userData = $this->users->CheckCookieLogin();
-        $_POST['userData'] = $userData;
+        $_POST['userData'] = $this->users->CheckCookieLogin();
     }
 
     function actionGet() {

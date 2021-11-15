@@ -7,7 +7,7 @@ if(isset($_POST['load_foto'])) echo FormLoadFoto($_POST['userData']['login']);
 if (isset($_POST['delete_product'])) echo FormDeleteProduct($data[0]['login'], $_POST['delete_product']);
 
 // Вызывает форму для удаления коментария
-if (isset($_POST['delete_comment'])) echo FormDeleteComment($data[0]['login'], $_POST['delete_comment']);
+if (isset($_POST['delete_comment'])) echo FormDeleteComment('/profile/'.$data[0]['login'], $_POST['delete_comment']);
 
 ?>
 
@@ -18,7 +18,7 @@ if (isset($_POST['delete_comment'])) echo FormDeleteComment($data[0]['login'], $
         <div class="profile_nav">
             <a href="/profile/<?= $data[0]['login'] ?>">Профиль</a>
 
-            <?php if ($data[0]['position'] == 'administrator' || $data[0]['position'] == 'moderator') { ?>
+            <?php if ($_POST['userData']['position'] == 'administrator' || $_POST['userData']['position'] == 'moderator') { ?>
                 <a href="/control/<?= $data[0]['login'] ?>">Управление</a>
             <?php } ?>
 

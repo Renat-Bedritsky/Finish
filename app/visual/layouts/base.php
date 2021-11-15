@@ -15,10 +15,7 @@
         
         <div class="products_wrapper width">
 
-            <?php
-            $counter = 0;                                    // Счётчик постов (для пагинации)
-
-            foreach ($info['products'] as $product) { ?>
+            <?php foreach ($info['products'] as $product) { ?>
 
                 <div class="product">
                     <div class="product_wrapper">
