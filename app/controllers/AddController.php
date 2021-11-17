@@ -7,11 +7,12 @@ class AddController extends Controller {
     public $view;
 
     function __construct() {
+        $this->users = new UsersModel;
+        $_POST['userData'] = $this->users->CheckCookieLogin();
+        if (!isset($_POST['userData']['position']) || $_POST['userData']['position'] == 'moderator' || $_POST['userData']['position'] == 'user' || $_POST['userData']['position'] == 'banned') exit(Controller::set404());
         $this->categories = new CategoriesModel;
         $this->products = new ProductsModel;
         $this->view = new AddView;
-        $this->users = new UsersModel;
-        $_POST['userData'] = $this->users->CheckCookieLogin();
     }
 
     function actionAdd() {

@@ -1,5 +1,3 @@
-<?php if ($_POST['userData']['position'] == 'banned') echo MessageBanned(); ?>
-
 <div class="title">
     <h2>Добавить товар</h2>
 </div>

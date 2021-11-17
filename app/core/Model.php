@@ -58,6 +58,7 @@ class Model {
         $string = $this->general($sql);
 
         $row = $string->fetch_assoc();
+        if (empty($row['id'])) $row['id'] = 0;
         return $row['id'];
     }
     

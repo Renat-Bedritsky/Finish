@@ -1,11 +1,4 @@
-<?php
-
-$user = $_POST['userData'];
-$logins = $_POST['logins'];
-
-if(isset($_POST['update_position'])) echo FormUpdatePosition($_POST);
-
-?>
+<?php if(isset($_POST['update_position'])) echo FormUpdatePosition($_POST); ?>
 
 <div class="control">
     <div class="width">
@@ -26,7 +19,7 @@ if(isset($_POST['update_position'])) echo FormUpdatePosition($_POST);
                             <td>Править</td>
                         </tr>
 
-                        <?php foreach ($logins as $value) { ?>
+                        <?php foreach ($_POST['logins'] as $value) { ?>
 
                             <tr>
                                 <td><a href="/profile/<?= $value['login'] ?>"><?= $value['login'] ?></a></td>

@@ -7,9 +7,10 @@ class AutorizationController extends Controller {
     public $view;
 
     function __construct() {
-        $this->view = new AutorizationView;
         $this->users = new UsersModel;
         $_POST['userData'] = $this->users->CheckCookieLogin();
+        if (isset($_POST['userData']['position'])) exit(Controller::set404());
+        $this->view = new AutorizationView;
     }
 
     function actionGet() {
@@ -29,10 +30,5 @@ class AutorizationController extends Controller {
         if (isset($_POST['registration'])) header("location: /registration");
         
         $this->view->show();
-    }
-
-    function actionExit() {
-        setcookie('login', $_POST['login'], time()-10);
-        header("location: /");
     }
 }

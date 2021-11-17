@@ -12,23 +12,6 @@ class CommentsModel extends Model {
     function CommentsOneAuthor($id) {
         return $this->getList(['product_code, content, date'], ['author_id' => $id]);
     }
-    
-
-    // Доступ к удалению комментария
-    function ResolutionDelete($focusUser, $cookieUser) {
-        if (
-            (empty($cookieUser)) || ($cookieUser['position'] == 'banned' && $focusUser['id'] != $cookieUser['author_id']) ||
-            ($focusUser['position'] == 'moderator' && ($cookieUser['position'] == 'moderator' || $cookieUser['position'] == 'user')) && 
-            ($focusUser['id'] != $cookieUser['author_id']) || 
-            ($focusUser['position'] == 'administrator' && ($cookieUser['position'] == 'moderator' || $cookieUser['position'] == 'user')) || 
-            ($cookieUser['position'] == 'user' && $focusUser['id'] != $cookieUser['author_id'])
-            ) {
-            return 'NO';
-        }
-        else if ($cookieUser['access'] == 'allowed' || $cookieUser['position'] == 'administrator' || $cookieUser['position'] == 'moderator') {
-            return 'YES';
-        }
-    }
 
 
     // Функция для удаления коментариев к товару

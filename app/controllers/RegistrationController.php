@@ -7,9 +7,10 @@ class RegistrationController extends Controller {
     public $view;
 
     function __construct() {
-        $this->view = new RegistrationView;
         $this->users = new UsersModel;
         $_POST['userData'] = $this->users->CheckCookieLogin();
+        if (isset($_POST['userData']['position'])) exit(Controller::set404());
+        $this->view = new RegistrationView;
     }
 
     function actionGet() {

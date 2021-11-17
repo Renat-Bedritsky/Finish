@@ -3,9 +3,10 @@ require_once 'app/models/CategoriesModel.php';
 require_once 'app/models/ProductsModel.php';
 require_once 'app/models/UsersModel.php';
 require_once 'app/models/CommentsModel.php';
+require_once 'app/models/OrdersModel.php';
 
 class Controller {
-    public $categories, $comments, $users, $products;
+    public $categories, $comments, $users, $products, $orders;
 
     function __construct() {
         

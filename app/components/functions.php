@@ -67,6 +67,17 @@ function LoadProduct($array) {
     );
     return $data;
 }
+    
+
+// Доступ к удалению комментария
+function ResolutionDelete($focusUser, $cookieUser) {
+    if (isset($cookieUser['position']) && (
+        ($cookieUser['position'] == 'administrator' && ($focusUser['position'] == 'moderator' || $focusUser['position'] == 'operator' || $focusUser['position'] == 'user' || $focusUser['position'] == 'banned')) || 
+        ($cookieUser['position'] == 'moderator' && ($focusUser['position'] == 'user' || $focusUser['position'] == 'banned')) || 
+        ($focusUser['id'] == $cookieUser['author_id']))
+    ) return 'YES';
+    else return 'NO';
+}
 
 
 // Форма для удаления товара
@@ -121,7 +132,7 @@ function FormUpdateComment($link, $ar) {
 
 // Форма для удаления комментария
 function FormUpdatePosition($data) {
-    if ($data['userData']['position'] == 'administrator') $add = '<option value="moderator">Модератор</option>';
+    if ($data['userData']['position'] == 'administrator') $add = '<option value="moderator">Модератор</option><option value="operator">Оператор</option>';
     else $add = null;
     return '
     <style>body {overflow: hidden;} .update_position {display: block;}</style>
@@ -156,14 +167,16 @@ function MessageOrder() {
 }
 
 
-// Сообщение о бане
-function MessageBanned() {
+// Для страницы заказов
+function FormViewOrder($id) {
     return '
-    <style>body {overflow: hidden;} .add_product_banned {display: block;} .title, .add_product {display: none;}</style>
-    <div class="add_product_banned">
-        <div class="add_product_banned_wrapper">
+    <style>body {overflow: hidden;} .view_order {display: block;}</style>
+    <div class="view_order">
+        <div class="view_order_window">
             <form method="POST">
-                <a href="/">Пользователь забанен</a>
+                <button name="order_done" value="'.$id.'">Выполнен</button><br>
+                <button name="order_canceled" value="'.$id.'">Отменить</button><br>
+                <a href="/orders">Закрыть</a>
             </form>
         </div>
     </div>';

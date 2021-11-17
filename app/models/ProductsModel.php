@@ -60,15 +60,15 @@ class ProductsModel extends Model {
     }
 
 
-    // Функция для страницы basket.php
+    // Функция для страницы basket
     function ProductsForBasket($array) {
         $products = [];
         $basket = [];
         $total = 0;
         foreach ($array as $code => $count) {
             $product = $this->getList(['id, category_code, author_id, name, code, description, image, price'], ['code' => $code]);
-            if(empty($product)) continue;
-            $product = $product[0];
+            if(empty($product)) $product = ['price' => 0];
+            else $product = $product[0];
             $product += ['count' => $count];
             array_push($products, $product);
             $total += $product['price'] * $count;
@@ -102,6 +102,7 @@ class ProductsModel extends Model {
         $total = 0;
         foreach ($basket as $key => $path) {
             $price = $this->getList(['price'], ['code' => $key]);
+            if(!isset($price[0])) continue;
             $sum = $price[0]['price'] * $path;
             $total += $sum;
         }
@@ -128,5 +129,32 @@ class ProductsModel extends Model {
         $sql = "INSERT INTO $this->tablename VALUES ('$id', '$category_code', '$author_id', '$name', '$code', '$description', '$image', '$price', '$created_at', '$updated_at')";
         $this->general($sql);
     }
+
+
+    // Информация для order
+    function ForOrders($data) {
+        foreach ($data['new_orders'] as $key => $order) {
+            $total = 0;
+            foreach ($order['products'] as $product => $count) {
+                $ar = $this->getList(['name, price'], ['code' => $product]);
+                $total += $ar[0]['price'] * $count;
+                $ar[0] += ['count' => $count];
+                $data['new_orders'][$key]['products'][$product] = $ar[0];
+            }
+            $data['new_orders'][$key] += ['total' => $total];
+        }
+        foreach ($data['done_orders'] as $key => $order) {
+            $total = 0;
+            foreach ($order['products'] as $product => $count) {
+                $ar = $this->getList(['name, price'], ['code' => $product]);
+                $total += $ar[0]['price'] * $count;
+                $ar[0] += ['count' => $count];
+                $data['done_orders'][$key]['products'][$product] = $ar[0];
+            }
+            $data['done_orders'][$key] += ['total' => $total];
+        }
+        return $data;
+    }
+
 
 }

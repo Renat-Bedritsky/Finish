@@ -23,15 +23,20 @@ class BaseController extends Controller {
         }
         else $get = '';
 
-        if (isset($_POST['plus']) && !empty($_POST['userData'])) {
+        if (isset($_POST['plus']) && isset($_POST['userData']['position'])) {
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
             $this->users->PlusBasket($array, $_POST['plus'], $_POST['userData']['author_id']);
             header('Refresh: 0');
         }
-        if (isset($_POST['plus']) && empty($_POST['userData'])) header('location: /autorization');
+        if (isset($_POST['plus']) && !isset($_POST['userData']['position'])) header('location: /autorization');
         
         $mass += ['get' => $get];
         $_POST['info'] = $mass;
         $this->view->show();
+    }
+
+    function actionExit() {
+        setcookie('login', $_POST['login'], time()-10);
+        header("location: /");
     }
 }

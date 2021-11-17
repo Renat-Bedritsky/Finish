@@ -5,10 +5,11 @@ require_once 'app/view/BasketView.php';
 class BasketController extends Controller {
 
     function __construct() {
-        $this->products = new ProductsModel;
-        $this->view = new BasketView;
         $this->users = new UsersModel;
         $_POST['userData'] = $this->users->CheckCookieLogin();
+        if (!isset($_POST['userData']['position'])) header('location: /autorization');
+        $this->products = new ProductsModel;
+        $this->view = new BasketView;
     }
 
     function ActionGet() {
@@ -27,6 +28,14 @@ class BasketController extends Controller {
         }
 
         $basket = $this->products->ProductsForBasket($array);
+
+        foreach ($basket['products'] as $key => $path) {
+            if ($path['price'] == 0) {
+                unset($basket['products'][$key]);
+                $this->users->UpdateBasket($basket['products'], $_POST['userData']['login']);
+                header('Refresh: 0');
+            }
+        }
 
         $_POST['basket'] = $basket;
         $this->view->show();

@@ -105,6 +105,12 @@ class UsersModel extends Model {
         foreach ($data as $key => $path) {
             $id = $path['author_id'];
             $user = $this->getList(['id, login, foto, position'], ['id' => $id]);
+
+            $link = $_SERVER['DOCUMENT_ROOT'].'/public/images/foto_profiles/'.$user[0]['foto'];
+            if (!file_exists($link) || $user[0]['foto'] == '') {
+                $user[0]['foto'] = '../site-images/start-foto.png';
+            }
+
             $data[$key] += ['user' => $user[0]];
         }
         return $data;
@@ -118,6 +124,7 @@ class UsersModel extends Model {
         foreach ($data as $key => $path) {
             if ($path['position'] == 'administrator') continue;
             if ($path['position'] == 'moderator' && $access == 'moderator') continue;
+            if ($path['position'] == 'operator' && $access == 'moderator') continue;
             array_push($result, $data[$key]);
         }
         return $result;  
@@ -165,7 +172,27 @@ class UsersModel extends Model {
         $basket = '[]';
         $position = 'user';
 
-        $sql = "INSERT INTO users VALUES ('$id', '$login', '$password', '$foto', '$basket', '$position', '$date')";
+        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$login', '$password', '$foto', '$basket', '$position', '$date')";
+        $this->general($sql);
+    }
+
+
+    // Получить корзину в json
+    function GetJson($id) {
+        $result = $this->getList(['basket'], ['id' => $id]);
+        return $result[0]['basket'];
+    }
+
+
+    // Обновить корзину
+    function UpdateBasket($basket, $login) {
+        $array = [];
+        foreach ($basket as $path) {
+            $array += [$path['code'] => $path['count']];
+
+        }
+        $new = json_encode($array);
+        $sql = "UPDATE $this->tablename SET basket = '$new' WHERE login = '$login'";
         $this->general($sql);
     }
 

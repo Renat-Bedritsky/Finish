@@ -1,9 +1,9 @@
-<?php if (isset($_POST['order'])) echo MessageOrder(); ?>
+<?php if(isset($_POST['order']) && $_POST['h2'] == 'Оформление заказа') echo MessageOrder(); ?>
 
 <div class="order">
     <div class="width">
         <div class="order_wrapper">
-            <h2>Оформление заказа</h2>
+            <h2><?= $_POST['h2'] ?></h2>
             <p>Общая стоимость: <span class="color_price"><?= $_POST['total'] ?> ₽</span></p>
             <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
 

@@ -9,9 +9,7 @@ class ProfileController extends Controller {
     function __construct() {
         $this->users = new UsersModel;
         $_POST['userData'] = $this->users->CheckCookieLogin();
-        if ($_POST['userData']['access'] != 'allowed') {
-            header('location: /autorization');
-        }
+        if (!isset($_POST['userData']['position'])) exit(Controller::set404());
         $this->products = new ProductsModel;
         $this->comments = new CommentsModel;
         $this->view = new ProfileView;
@@ -55,7 +53,7 @@ class ProfileController extends Controller {
         if (empty($data)) exit(Controller::set404());
         $userProducts = $this->products->ProductsOneAuthor($data[0]['id']);
         $userComments = $this->comments->CommentsOneAuthor($data[0]['id']);
-        $resolution = $this->comments->ResolutionDelete($data[0], $_POST['userData']);
+        $resolution = ResolutionDelete($data[0], $_POST['userData']);
 
         if (isset($_POST['search_user'])) {
             $search = $this->users->searchUser($_POST['search_user']);

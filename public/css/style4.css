@@ -262,6 +262,7 @@ li {
 
 .product_wrapper img {
     margin: 10px 0;
+    max-width: 280px;
     height: 180px;
 }
 
@@ -1095,4 +1096,127 @@ textarea {
 
 .update_position_wrapper form a:hover {
     background-color: rgb(201, 48, 44);
+}
+
+/* Стили для orders */
+.orders_wrapper {
+    display: flex;
+}
+
+.orders_new,
+.orders_done {
+    width: 50%;
+    min-height: 200px;
+    max-height: 1000px;
+}
+
+.orders_new_wrapper,
+.orders_done_wrapper {
+    margin: 30px auto 0 auto;
+    width: 90%;
+    min-height: 140px;
+    max-height: 640px;
+    overflow: auto;
+}
+
+.orders_new_wrapper table,
+.orders_done_wrapper table {
+    background-color: #eee;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.orders_new_wrapper table td,
+.orders_done_wrapper table td {
+    width: 50%;
+}
+
+.orders_product_name {
+    margin-top: 15px;
+    display: block;
+}
+
+.orders_product_count {
+    margin-bottom: 15px;
+    display: block;
+}
+
+.orders_new_wrapper button,
+.orders_done_wrapper button {
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    background-color: rgb(92, 184, 92);
+    border: 0;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+}
+
+.orders_new_wrapper button:hover,
+.orders_done_wrapper button:hover {
+    background-color: rgb(68, 157, 68);
+}
+
+.view_order {
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    background-color: rgba(40, 40, 40, .5);
+}
+.view_order_window {
+    padding-top: 20px;
+    background-color: white;
+    margin: 150px auto;
+    width: 400px;
+    height: 200px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.view_order_window form button {
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 3px;
+    color: white;
+    background-color: rgb(92, 184, 92);
+    border: 1px solid rgb(92, 184, 92);
+    width: 150px;
+    height: 40px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.view_order_window form button:nth-child(3) {
+    background-color: rgb(217, 83, 79);
+    border: 1px solid rgb(217, 83, 79);
+}
+
+.view_order_window form button:hover {
+    background-color: rgb(68, 157, 68);
+    border: 1px solid rgb(68, 157, 68);
+    cursor: pointer;
+}
+
+.view_order_window form button:nth-child(3):hover {
+    background-color: rgb(201, 48, 44);
+    border: 1px solid rgb(201, 48, 44);
+}
+
+.view_order_window form a {
+    border-radius: 3px;
+    width: 120px;
+    height: 20px;
+    padding: 10px 15px;
+    display: inline-block;
+    background-color: rgb(51, 122, 183);
+    border: 1px solid rgb(51, 122, 183);
+    color: white;
+}
+
+.view_order_window form a:hover {
+    background-color: rgb(40, 96, 144);
+    border: 1px solid rgb(40, 96, 144);
 }

@@ -32,11 +32,12 @@ class CategoryController extends Controller {
         }
         else $get = '';
 
-        if (isset($_POST['plus'])) {
+        if (isset($_POST['plus']) && isset($_POST['userData']['position'])) {
             $array = $this->users->GetBasket($_POST['userData']['author_id']);
             $this->users->PlusBasket($array, $_POST['plus'], $_POST['userData']['author_id']);
             header('Refresh: 0');
         }
+        if (isset($_POST['plus']) && !isset($_POST['userData']['position'])) header('location: /autorization');
         
         $category += ['get' => $get];
         $_POST['category'] = $category;

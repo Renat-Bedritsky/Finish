@@ -5,11 +5,11 @@ require_once 'app/view/DetailView.php';
 class DetailController extends Controller {
 
     function __construct() {
+        $this->users = new UsersModel;
+        $_POST['userData'] = $this->users->CheckCookieLogin();
         $this->products = new ProductsModel;
         $this->comments = new CommentsModel;
         $this->view = new DetailView;
-        $this->users = new UsersModel;
-        $_POST['userData'] = $this->users->CheckCookieLogin();
     }
 
     function ActionGet($code) {
@@ -25,7 +25,7 @@ class DetailController extends Controller {
             $ar = $this->users->getUsers($com);
             $data += ['comments' => $ar];
             foreach ($data['comments'] as $key => $comment) {
-                $resolution = $this->comments->ResolutionDelete($comment['user'], $_POST['userData']);
+                $resolution = ResolutionDelete($comment['user'], $_POST['userData']);
                 $data['comments'][$key]['user'] += ['resolution' => $resolution];
             }
         }
@@ -38,12 +38,12 @@ class DetailController extends Controller {
 
         // Добавление коментария
         if(isset($_POST['enter_comment'])) {
-            $data = [
+            $newComment = [
                 'author_id' => $_POST['userData']['author_id'],
                 'product_code' => $data[0]['code'],
                 'content' => $_POST['content']
             ];
-            $this->comments->AddComments($data);
+            $this->comments->AddComments($newComment);
             header('Refresh: 0');
         }
 

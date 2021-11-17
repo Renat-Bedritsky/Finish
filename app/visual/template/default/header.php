@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_POST['title'] ?></title>
     <link rel="shortcut icon" href="/public/images/foto_products/mobile.jpg" type="image/png">
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/style4.css">
     <link rel="stylesheet" href="/public/css/media.css">
 </head>
 
@@ -27,14 +27,7 @@
                     <ul>
                         <li><a href="/">Товары</a></li>
                         <li><a href="/categories">Категории</a></li>
-                        <?php 
-                        if (isset($user['login']) && $user['access'] == 'allowed') { ?>
-                            <li><a href="/basket">Корзина</a></li>
-                        <?php 
-                        }
-                        else { ?>
-                            <li><a href="/autorization">Корзина</a></li>
-                        <?php } ?>
+                        <li><a href="/basket">Корзина</a></li>
                     </ul>
                 </div>
 
@@ -49,7 +42,10 @@
                                     <a><?= $user['login'] ?></a>
                                     <ul>
                                         <li><a href="/profile/<?= $user['login'] ?>">Профиль</a></li>
-                                        <li><a href="/add">Добавить</a></li>
+                                        <?php if ($user['position'] == 'operator' || $user['position'] == 'administrator') { ?>
+                                            <li><a href="/add">Добавить</a></li>
+                                            <li><a href="/orders">Заказы</a></li>
+                                        <?php } ?>
                                         <li><a href="/logout">Выход</a></li>
                                     </ul>
                                 </li>
