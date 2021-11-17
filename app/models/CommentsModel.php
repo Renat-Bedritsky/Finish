@@ -14,20 +14,18 @@ class CommentsModel extends Model {
     }
 
 
-    // Функция для удаления коментариев к товару
+    // Функция для удаления всех коментариев к товару
     function DeleteComments($product_code) {
-        $sql = "DELETE FROM $this->tablename WHERE product_code = '$product_code'";
-        $this->general($sql);
+        $this->deleteList(['product_code' => $product_code]);
     }
 
 
-    // Функция для удаления  коментария товару
+    // Функция для удаления одного коментария к товару
     function DeleteComment($date) {
-        $sql = "DELETE FROM $this->tablename WHERE date = '$date'";
-        $this->general($sql);
+        $this->deleteList(['date' => $date]);
     }
 
-    // Функция для получения коментариев и информации о их создателях
+    // Функция для получения коментариев
     function GetComments($product_code) {
         $data = $this->getList([], ['product_code' => $product_code]);
         if (isset($data)) return $data;
@@ -38,22 +36,21 @@ class CommentsModel extends Model {
     // Функция для добавления коментариев
     function AddComments($data) {
         date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
+        $line = $this->getLine();
 
-        $id = $this->getLine() + 1;
+        $id = $line + 1;
         $author_id = $data['author_id'];
         $product_code = $data['product_code'];
         $content = $data['content'];
         $date = date("Y-m-d H:i:s");
 
-        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$author_id', '$product_code', '$content', '$date')";
-        $this->general($sql);
+        $this->insertList([$id, $author_id, $product_code, $content, $date]);
     }
 
 
     // Функция для обновления комментария
     function updateComments($text, $author_id, $date) {
-        $sql = "UPDATE $this->tablename SET content = '$text' WHERE author_id = '$author_id' AND date = '$date'";
-        $this->general($sql);
+        $this->updateList(['content' => $text], ['author_id' => $author_id, 'date' => $date]);
     }
 
 }

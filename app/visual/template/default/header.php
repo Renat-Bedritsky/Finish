@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_POST['title'] ?></title>
     <link rel="shortcut icon" href="/public/images/foto_products/mobile.jpg" type="image/png">
-    <link rel="stylesheet" href="/public/css/style4.css">
-    <link rel="stylesheet" href="/public/css/media.css">
+    <link rel="stylesheet" href="/public/css/style1.css">
+    <link rel="stylesheet" href="/public/css/media1.css">
 </head>
 
 <body>

@@ -46,5 +46,12 @@
                 <a href="/order">Оформить заказ</a>
             <?php } ?>
         </div>
+
+        <div class="basket_clear">
+            <?php
+            if ($basket['total'] > 0) { ?>
+                <a href="/basket/clear">Очистить</a>
+            <?php } ?>
+        </div>
     </div>
 </div>

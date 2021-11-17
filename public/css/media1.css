@@ -105,6 +105,15 @@
         left: 0;
         z-index: 2;
     }
+
+    .orders_wrapper {
+        display: block;
+    }
+
+    .orders_new,
+    .orders_done {
+        width: 100%;
+    }
     
 }
 

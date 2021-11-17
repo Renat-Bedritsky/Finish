@@ -51,8 +51,7 @@ class UsersModel extends Model {
             $array += [$code => $count];
         }
         $json = json_encode($array);                                      // Кодировка
-        $sql = "UPDATE users SET basket = '$json' WHERE id = $user_id";   // Текст запроса
-        $this->general($sql);                                             // Отправка запроса
+        $this->updateList(['basket' => $json], ['id' => $user_id]);
     }
 
 
@@ -63,8 +62,7 @@ class UsersModel extends Model {
             unset($array[$code]);
         }
         $json = json_encode($array);                                      // Кодировка
-        $sql = "UPDATE users SET basket = '$json' WHERE id = $user_id";   // Текст запроса
-        $this->general($sql);                                             // Отправка запроса
+        $this->updateList(['basket' => $json], ['id' => $user_id]);
     }
 
 
@@ -88,8 +86,7 @@ class UsersModel extends Model {
 
     // Функция для обновления фото профиля
     function UpdateFoto($image, $id) {
-        $sql = "UPDATE users SET foto = '$image' WHERE id = $id";
-        $this->general($sql);
+        $this->updateList(['foto' => $image], ['id' => $id]);
     }
 
 
@@ -133,8 +130,7 @@ class UsersModel extends Model {
 
     // Функция для обновления доступа
     function UpdatePosition($login, $position) {
-        $sql = "UPDATE $this->tablename SET position = '$position' WHERE login = '$login'";
-        $this->general($sql);
+        $this->updateList(['position' => $position], ['login' => $login]);
     }
 
 
@@ -172,8 +168,7 @@ class UsersModel extends Model {
         $basket = '[]';
         $position = 'user';
 
-        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$login', '$password', '$foto', '$basket', '$position', '$date')";
-        $this->general($sql);
+        $this->insertList([$id, $login, $password, $foto, $basket, $position, $date]);
     }
 
 
@@ -192,8 +187,13 @@ class UsersModel extends Model {
 
         }
         $new = json_encode($array);
-        $sql = "UPDATE $this->tablename SET basket = '$new' WHERE login = '$login'";
-        $this->general($sql);
+        $this->updateList(['basket' => $new], ['login' => $login]);
+    }
+
+
+    // Очистить корзину
+    function DeleteBasket($id) {
+        $this->updateList(['basket' => '[]'], ['id' => $id]);
     }
 
 }

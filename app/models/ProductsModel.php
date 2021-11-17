@@ -85,10 +85,9 @@ class ProductsModel extends Model {
     }
 
 
-    // Функция для удаления товара и коментариев к нему
+    // Функция для удаления товара
     function DeleteProduct($product_code) {
-        $sql = "DELETE FROM products WHERE code = '$product_code'";
-        $this->general($sql);
+        $this->deleteList(['code' => $product_code]);
     }
 
 
@@ -126,8 +125,7 @@ class ProductsModel extends Model {
         $created_at = date("Y-m-d H:i:s");           // Дата создания поста
         $updated_at = date("Y-m-d H:i:s");           // Дата обновления поста
 
-        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$category_code', '$author_id', '$name', '$code', '$description', '$image', '$price', '$created_at', '$updated_at')";
-        $this->general($sql);
+        $this->insertList([$id, $category_code, $author_id, $name, $code, $description, $image, $price, $created_at, $updated_at]);
     }
 
 

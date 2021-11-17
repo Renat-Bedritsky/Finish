@@ -17,8 +17,7 @@ class OrdersModel extends Model {
         $created_at = date("Y-m-d H:i:s");
         $updated_at = date("Y-m-d H:i:s");
 
-        $sql = "INSERT INTO $this->tablename VALUES ('$id', '$user_id', '$name', '$phone', '$email', '$operator', '$products', '$status', '$created_at', '$updated_at')";
-        $this->general($sql);
+        $this->insertList([$id, $user_id, $name, $phone, $email, $operator, $products, $status, $created_at, $updated_at]);
     }
 
     function GetOrders($operator_name) {
@@ -43,30 +42,20 @@ class OrdersModel extends Model {
 
     function DoneOrder($operator, $id) {
         date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
-
         $updated_at = date("Y-m-d H:i:s");
-        $sql = "UPDATE $this->tablename SET operator = '$operator' WHERE id = '$id'";
-        $this->general($sql);
-        
-        $sql = "UPDATE $this->tablename SET status = 'done' WHERE id = '$id'";
-        $this->general($sql);
 
-        $sql = "UPDATE $this->tablename SET updated_at = '$updated_at' WHERE id = '$id'";
-        $this->general($sql);
+        $this->updateList(['operator' => $operator], ['id' => $id]);
+        $this->updateList(['status' => 'done'], ['id' => $id]);
+        $this->updateList(['updated_at' => $updated_at], ['id' => $id]);
     }
 
     function CanceledOrder($operator, $id) {
         date_default_timezone_set('Europe/Minsk');   // Назначение временой зоны (Минск)
-
         $updated_at = date("Y-m-d H:i:s");
-        $sql = "UPDATE $this->tablename SET operator = '$operator' WHERE id = '$id'";
-        $this->general($sql);
-        
-        $sql = "UPDATE $this->tablename SET status = 'canceled' WHERE id = '$id'";
-        $this->general($sql);
 
-        $sql = "UPDATE $this->tablename SET updated_at = '$updated_at' WHERE id = '$id'";
-        $this->general($sql);
+        $this->updateList(['operator' => $operator], ['id' => $id]);
+        $this->updateList(['status' => 'canceled'], ['id' => $id]);
+        $this->updateList(['updated_at' => $updated_at], ['id' => $id]);
     }
 
 }

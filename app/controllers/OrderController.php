@@ -31,6 +31,7 @@ class OrderController extends Controller {
                 if (preg_match("/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})*$/u", $_POST['phone']))  {
                     if (preg_match("/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i", $_POST['email']))  {
                         $this->orders->AddOrder($_POST['userData']['author_id'], $_POST['name'], $_POST['phone'], $_POST['email'], $_POST['basket']);
+                        $this->users->DeleteBasket($_POST['userData']['author_id']);
                         header('Refresh: 5');
                     }
                     else $_POST['h2'] = 'Некоректный email';

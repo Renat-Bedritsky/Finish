@@ -7,6 +7,7 @@ return [
     '\/?([0-9])*\?([a-z0-9=\&]*)' => 'Base/Get/$2',
     'categories' => 'Categories/Get',
     'basket' => 'Basket/Get',
+    'basket\/clear' => 'Basket/Clear',
     '(mobile|portable|appliances|other)\/?' => 'Category/Page/$2_1',
     '(mobile|portable|appliances|other)\/([0-9]*)' => 'Category/Page/$2_$3',
     '(mobile|portable|appliances|other)\/([0-9])*\?([a-z0-9=\&]*)' => 'Category/Page/$2_$3',

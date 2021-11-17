@@ -40,4 +40,9 @@ class BasketController extends Controller {
         $_POST['basket'] = $basket;
         $this->view->show();
     }
+
+    function ActionClear() {
+        $this->users->DeleteBasket($_POST['userData']['author_id']);
+        header("location: /basket");
+    }
 }
