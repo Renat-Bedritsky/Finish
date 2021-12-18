@@ -49,7 +49,7 @@ class DetailController extends Controller {
 
         // Изменение коментария
         if (isset($_POST['enter_update'])) {
-            $this->comments->UpdateComments($_POST['content'], $_POST['author_id'],$_POST['date']);
+            $this->comments->UpdateComments($_POST['content'], $_POST['author_id'], $_POST['date']);
             header('Refresh: 0');
         }
 

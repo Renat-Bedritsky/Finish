@@ -28,7 +28,7 @@
                         </form>
                     </td>
                     <td><?= $product['price'] ?> ₽</td>
-                    <td><?= $product['count'] * $product['price'] ?> ₽</td>
+                    <td><?= $product['count'] * $product['price'] ?> BYN</td>
                 </tr>
 
             <?php } ?>
@@ -36,7 +36,7 @@
             <tr style="height:50px;">
                 <td colspan="2">Итоговая стоимость:</td>
                 <td colspan="2"></td>
-                <td><?= $basket['total'] ?> ₽</td>
+                <td><?= $basket['total'] ?> BYN</td>
             </tr>
         </table>
 

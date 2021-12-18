@@ -26,7 +26,7 @@
                             <tr class="orders_product_count"><td>Количество: <?= $product['count'] ?></td></tr>
                         <?php } ?>
 
-                        <tr><td>Итого: <?= $path['total'] ?></td></tr>
+                        <tr><td>Итого: <?= $path['total'] ?> BYN</td></tr>
 
                         <tr><td><?= $path['created_at'] ?></td></tr>
 
@@ -62,7 +62,7 @@
                             <tr class="orders_product_count"><td>Количество: <?= $product['count'] ?></td></tr>
                         <?php } ?>
 
-                        <tr><td>Итого: <?= $path['total'] ?></td></tr>
+                        <tr><td>Итого: <?= $path['total'] ?> BYN</td></tr>
 
                         <tr><td><?= $path['updated_at'] ?></td></tr>
 

@@ -25,7 +25,7 @@
                     <div class="product_wrapper">
                         <img src="/public/images/foto_products/<?= $product['image'] ?>" alt="<?= $product['code'] ?>">
                         <p><?= $product['name'] ?></p>
-                        <p><?= $product['price'] ?> ₽</p>
+                        <p><?= $product['price'] ?> BYN</p>
                                         
                         <form method="POST">
                             <button name="plus" value="<?= $product['code'] ?>">В корзину</button>

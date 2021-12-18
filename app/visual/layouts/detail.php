@@ -15,7 +15,7 @@ if (isset($_POST['update_comment'])) echo FormUpdateComment('/detail/'.$data[0][
     <div class="width">
         <div class="detail_wrapper">
             <h2><?= $data[0]['name'] ?></h2>
-            <p>Цена: <?= $data[0]['price'] ?> ₽</p>
+            <p>Цена: <?= $data[0]['price'] ?> BYN</p>
             <img src="/public/images/foto_products/<?= $data[0]['image'] ?>" alt="<?= $data[0]['code'] ?>">
             <p><?= $data[0]['description'] ?></p>
             <form method="POST">

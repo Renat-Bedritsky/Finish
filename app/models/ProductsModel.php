@@ -95,6 +95,7 @@ class ProductsModel extends Model {
     function GetProduct($code) {
         return $this->getList(['id, category_code, author_id, name, code, description, image, price'], ['code' => $code]);
     }
+    
 
     // Сумма цены корзины
     function GetTotalPrice($basket) {
@@ -129,7 +130,7 @@ class ProductsModel extends Model {
     }
 
 
-    // Информация для order
+    // Информация для orders
     function ForOrders($data) {
         foreach ($data['new_orders'] as $key => $order) {
             $total = 0;

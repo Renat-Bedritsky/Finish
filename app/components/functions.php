@@ -32,7 +32,7 @@ function LoadFoto($link) {
 // Транслитерация имени загружаемого фото
 function transliteration($name, $extension, $listFiles, $path, $folder) {
     $newName = '';
-    $arr = ['а'=>'a','б'=>'b','в'=>'v','г'=>'g','д'=>'d','е'=>'e','ё'=>'yo','ж'=>'j','з'=>'z','и'=>'i','й'=>'i','к'=>'k','л'=>'l','м'=>'m','н'=>'n','о'=>'o','п'=>'p','р'=>'r','с'=>'s','т'=>'t','у'=>'u','ф'=>'f','х'=>'h','ц'=>'c','ч'=>'ch','ш'=>'sh','щ'=>'sch','ъ'=>'','ы'=>'i','ь'=>'`','э'=>'e','ю'=>'u','я'=>'ya', 'А'=>'A','Б'=>'B','В'=>'V','Г'=>'G','Д'=>'D','Е'=>'E','Ё'=>'YO','Ж'=>'J','З'=>'Z','И'=>'I','Й'=>'I','К'=>'K','Л'=>'L','М'=>'M','Н'=>'N','О'=>'O','П'=>'P','Р'=>'R','С'=>'S','Т'=>'T','У'=>'U','Ф'=>'F','Х'=>'H','Ц'=>'C','Ч'=>'CH','Ш'=>'SH','Щ'=>'SCH','Ъ'=>'','Ы'=>'I','Ь'=>'`','Э'=>'E','Ю'=>'U','Я'=>'YA', 'a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h', 'i' => 'i', 'j' => 'j', 'k' => 'k', 'l' => 'l', 'm' => 'm', 'n' => 'n', 'o' => 'o', 'p' => 'p', 'q' => 'q', 'r' => 'r', 's' => 's', 't' => 't', 'u' => 'u', 'v' => 'v', 'w' => 'w', 'x' => 'x', 'y' => 'y', 'z' => 'z', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', 'G' => 'G', 'H' => 'H', 'I' => 'I', 'J' => 'J', 'K' => 'K', 'L' => 'L', 'M' => 'M', 'N' => 'N', 'O' => 'O', 'P' => 'P', 'Q' => 'Q', 'R' => 'R', 'S' => 'S', 'T' => 'T', 'U' => 'U', 'V' => 'V', 'W' => 'W', 'X' => 'X', 'Y' => 'Y', 'Z' => 'Z', '-' => '-', '_' => '_', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9'];
+    $arr = ['а'=>'a','б'=>'b','в'=>'v','г'=>'g','д'=>'d','е'=>'e','ё'=>'yo','ж'=>'j','з'=>'z','и'=>'i','й'=>'i','к'=>'k','л'=>'l','м'=>'m','н'=>'n','о'=>'o','п'=>'p','р'=>'r','с'=>'s','т'=>'t','у'=>'u','ф'=>'f','х'=>'h','ц'=>'c','ч'=>'ch','ш'=>'sh','щ'=>'sch','ъ'=>'','ы'=>'i','ь'=>'','э'=>'e','ю'=>'u','я'=>'ya', 'А'=>'A','Б'=>'B','В'=>'V','Г'=>'G','Д'=>'D','Е'=>'E','Ё'=>'YO','Ж'=>'J','З'=>'Z','И'=>'I','Й'=>'I','К'=>'K','Л'=>'L','М'=>'M','Н'=>'N','О'=>'O','П'=>'P','Р'=>'R','С'=>'S','Т'=>'T','У'=>'U','Ф'=>'F','Х'=>'H','Ц'=>'C','Ч'=>'CH','Ш'=>'SH','Щ'=>'SCH','Ъ'=>'','Ы'=>'I','Ь'=>'','Э'=>'E','Ю'=>'U','Я'=>'YA', 'a' => 'a', 'b' => 'b', 'c' => 'c', 'd' => 'd', 'e' => 'e', 'f' => 'f', 'g' => 'g', 'h' => 'h', 'i' => 'i', 'j' => 'j', 'k' => 'k', 'l' => 'l', 'm' => 'm', 'n' => 'n', 'o' => 'o', 'p' => 'p', 'q' => 'q', 'r' => 'r', 's' => 's', 't' => 't', 'u' => 'u', 'v' => 'v', 'w' => 'w', 'x' => 'x', 'y' => 'y', 'z' => 'z', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 'F' => 'F', 'G' => 'G', 'H' => 'H', 'I' => 'I', 'J' => 'J', 'K' => 'K', 'L' => 'L', 'M' => 'M', 'N' => 'N', 'O' => 'O', 'P' => 'P', 'Q' => 'Q', 'R' => 'R', 'S' => 'S', 'T' => 'T', 'U' => 'U', 'V' => 'V', 'W' => 'W', 'X' => 'X', 'Y' => 'Y', 'Z' => 'Z', '-' => '-', '_' => '_', '0' => '0', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9'];
     $arStr = preg_split('//u', $name);
 
     foreach($arStr as $letter) {
@@ -112,7 +112,7 @@ function FormDeleteComment($link, $comment) {
 }
 
 
-// Форма для удаления комментария
+// Форма для обновления комментария
 function FormUpdateComment($link, $ar) {
     return '
     <style>body {overflow: hidden;} .update_field {display: block;}</style>
@@ -130,27 +130,27 @@ function FormUpdateComment($link, $ar) {
 }
 
 
-// Форма для удаления комментария
+// Форма для изменения статуса
 function FormUpdatePosition($data) {
     if ($data['userData']['position'] == 'administrator') $add = '<option value="moderator">Модератор</option><option value="operator">Оператор</option>';
     else $add = null;
     return '
     <style>body {overflow: hidden;} .update_position {display: block;}</style>
     <div class="update_position">
-    <div class="update_position_wrapper">
-        '.$data['update_position'].'
-        <form method="POST">
-            <input type="hidden" name="login" value="'.$data['update_position'].'">
-            <select name="position">
-                <option value="user">Пользователь</option>
-                '.$add.'
-                <option value="banned">Бан</option>
-            </select><br>
-            <input type="submit" name="enter" value="Изменить">
-            <a href="/control/'.$_POST['focus'].'">Отмена</a>
-        </form>
-    </div>
-</div>';
+        <div class="update_position_wrapper">
+            '.$data['update_position'].'
+            <form method="POST">
+                <input type="hidden" name="login" value="'.$data['update_position'].'">
+                <select name="position">
+                    <option value="user">Пользователь</option>
+                    '.$add.'
+                    <option value="banned">Бан</option>
+                </select><br>
+                <input type="submit" name="enter" value="Изменить">
+                <a href="/control/'.$_POST['focus'].'">Отмена</a>
+            </form>
+        </div>
+    </div>';
 }
 
 

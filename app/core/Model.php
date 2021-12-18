@@ -9,7 +9,7 @@ class Model {
         $this->servername = 'localhost';
         $this->username = 'root';
         $this->password = '';
-        $this->dbname = 'market';
+        $this->dbname = 'marketv1';
     }
     
     // Общая функция для подключения к базе данных
